@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DropboxSDK/DropboxSDK.h>
 
-@interface PrototypeSelectionViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+
+@interface PrototypeSelectionViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,DBRestClientDelegate>
 
 @end

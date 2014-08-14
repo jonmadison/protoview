@@ -9,7 +9,6 @@
 #import "PrototypeSelectionViewController.h"
 #import "ViewController.h"
 #import "Util.h"
-#import <DropboxSDK/DropboxSDK.h>
 
 @interface PrototypeSelectionViewController ()
 @property NSString* selectedPrototype;
@@ -79,8 +78,12 @@
   if (![[DBSession sharedSession] isLinked]) {
     [[DBSession sharedSession] linkFromController:self];
   } else {
-    //display file selection dialog
+    [self showDropboxFilePicker];
   }
+}
+
+- (void)showDropboxFilePicker {
+  
 }
 
 - (void)copyPrototypesFrom:(NSString*)path toPrototypesPath:(NSString*)prototypesPath {
