@@ -1,5 +1,5 @@
 PODS:
-  - Dropbox-iOS-SDK (1.3.11)
+  - DBChooser (1.1)
   - GCDWebServer (2.5):
     - GCDWebServer/Core
   - GCDWebServer/Core (2.5)
@@ -7,13 +7,13 @@ PODS:
   - zipzap (7.0)
 
 DEPENDENCIES:
-  - Dropbox-iOS-SDK (~> 1.3)
+  - DBChooser (~> 1.1)
   - GCDWebServer (~> 2.5)
   - MBProgressHUD (~> 0.9)
   - zipzap (~> 7.0)
 
 SPEC CHECKSUMS:
-  Dropbox-iOS-SDK: 3bd81e7abfeb66b8fced09768db0166286a90f3f
+  DBChooser: d192fb6fed4b727658ad53e7d341e9e306b6784d
   GCDWebServer: 42b25eb6dc20d83d73b2ba2ce547e2c96263a2cf
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   zipzap: 1c85484d8f89388fba8fb5824b2eae15b9ce8092

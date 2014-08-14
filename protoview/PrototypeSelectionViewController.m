@@ -9,6 +9,7 @@
 #import "PrototypeSelectionViewController.h"
 #import "ViewController.h"
 #import "Util.h"
+#import <DBChooser.h>
 
 @interface PrototypeSelectionViewController ()
 @property NSString* selectedPrototype;
@@ -75,12 +76,15 @@
 }
 
 - (IBAction) didPressAddNewPrototype {
-  if (![[DBSession sharedSession] isLinked]) {
-    [[DBSession sharedSession] linkFromController:self];
-  } else {
-    [self showDropboxFilePicker];
-  }
-}
+  [[DBChooser defaultChooser] openChooserForLinkType:DBChooserLinkTypePreview
+                                  fromViewController:self completion:^(NSArray *results)
+   {
+     if ([results count]) {
+       // Process results from Chooser
+     } else {
+       // User canceled the action
+     }
+   }];}
 
 - (void)showDropboxFilePicker {
   

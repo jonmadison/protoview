@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C92C6C6C8C84CC2ADD3CC46 /* libPods-protoview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CEF96A87DB84AD9967C6323 /* libPods-protoview.a */; };
+		84092BDE199D3FC9005F5D64 /* NamePrototypeDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 84092BDD199D3FC9005F5D64 /* NamePrototypeDialog.m */; };
 		841AEF4F199C2D1E00D0CBFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841AEF4E199C2D1E00D0CBFD /* Foundation.framework */; };
 		841AEF51199C2D1E00D0CBFD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841AEF50199C2D1E00D0CBFD /* CoreGraphics.framework */; };
 		841AEF53199C2D1E00D0CBFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841AEF52199C2D1E00D0CBFD /* UIKit.framework */; };
@@ -26,7 +27,6 @@
 		841AF072199C693D00D0CBFD /* paul.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 841AF070199C693D00D0CBFD /* paul.bundle */; };
 		847B5CCF199C83A300F84CEE /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 847B5CCE199C83A300F84CEE /* Util.m */; };
 		84D6554C199D09090059696B /* PrototypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6554B199D09090059696B /* PrototypeSelectionViewController.m */; };
-		84D6554E199D2E160059696B /* appKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84D6554D199D2E160059696B /* appKeys.plist */; };
 		84D65550199D340B0059696B /* dropbox-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D6554F199D340B0059696B /* dropbox-logo.png */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +43,8 @@
 /* Begin PBXFileReference section */
 		4CEF96A87DB84AD9967C6323 /* libPods-protoview.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-protoview.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		577D8DE9046A4F65A8B94966 /* Pods-protoview.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-protoview.xcconfig"; path = "Pods/Pods-protoview.xcconfig"; sourceTree = "<group>"; };
+		84092BDC199D3FC9005F5D64 /* NamePrototypeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamePrototypeDialog.h; sourceTree = "<group>"; };
+		84092BDD199D3FC9005F5D64 /* NamePrototypeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NamePrototypeDialog.m; sourceTree = "<group>"; };
 		841AEF4B199C2D1E00D0CBFD /* protoview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = protoview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		841AEF4E199C2D1E00D0CBFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		841AEF50199C2D1E00D0CBFD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -68,7 +70,6 @@
 		847B5CCE199C83A300F84CEE /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		84D6554A199D09090059696B /* PrototypeSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrototypeSelectionViewController.h; sourceTree = "<group>"; };
 		84D6554B199D09090059696B /* PrototypeSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrototypeSelectionViewController.m; sourceTree = "<group>"; };
-		84D6554D199D2E160059696B /* appKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = appKeys.plist; sourceTree = "<group>"; };
 		84D6554F199D340B0059696B /* dropbox-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-logo.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,7 +154,6 @@
 				841AEF57199C2D1E00D0CBFD /* InfoPlist.strings */,
 				841AEF5A199C2D1E00D0CBFD /* main.m */,
 				841AEF5C199C2D1E00D0CBFD /* protoview-Prefix.pch */,
-				84D6554D199D2E160059696B /* appKeys.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -192,6 +192,8 @@
 				84D6554B199D09090059696B /* PrototypeSelectionViewController.m */,
 				841AEF63199C2D1E00D0CBFD /* ViewController.h */,
 				841AEF64199C2D1E00D0CBFD /* ViewController.m */,
+				84092BDC199D3FC9005F5D64 /* NamePrototypeDialog.h */,
+				84092BDD199D3FC9005F5D64 /* NamePrototypeDialog.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -279,7 +281,6 @@
 				84D65550199D340B0059696B /* dropbox-logo.png in Resources */,
 				841AEF59199C2D1E00D0CBFD /* InfoPlist.strings in Resources */,
 				841AEF62199C2D1E00D0CBFD /* Main.storyboard in Resources */,
-				84D6554E199D2E160059696B /* appKeys.plist in Resources */,
 				841AF072199C693D00D0CBFD /* paul.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				847B5CCF199C83A300F84CEE /* Util.m in Sources */,
+				84092BDE199D3FC9005F5D64 /* NamePrototypeDialog.m in Sources */,
 				841AEF65199C2D1E00D0CBFD /* ViewController.m in Sources */,
 				84D6554C199D09090059696B /* PrototypeSelectionViewController.m in Sources */,
 				841AEF5F199C2D1E00D0CBFD /* AppDelegate.m in Sources */,

@@ -4,6 +4,6 @@ platform :ios, "7.1"
 target "protoview" do
   pod 'GCDWebServer', '~> 2.5'
   pod 'MBProgressHUD', '~> 0.9'
-  pod 'Dropbox-iOS-SDK', '~> 1.3'
+  pod 'DBChooser', '~> 1.1'
   pod 'zipzap', '~> 7.0'
 end

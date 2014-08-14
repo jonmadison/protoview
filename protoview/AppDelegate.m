@@ -9,18 +9,12 @@
 #import "AppDelegate.h"
 #import "Util.h"
 #import <GCDWebServer.h>
-#import <DropboxSDK/DropboxSDK.h>
+#import <DBChooser.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"appKeys" ofType:@"plist"];
-  NSDictionary *configuration = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-  
-  NSString *appKey = configuration[@"DropBoxAPI"][@"AppKey"];
-  NSString *appSecret = configuration[@"DropBoxAPI"][@"AppSecret"];
-  
+{  
   GCDWebServer* webServer = [[GCDWebServer alloc] init];
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -28,12 +22,6 @@
     
   [webServer addGETHandlerForBasePath:@"/" directoryPath:prototypesPath indexFilename:@"index.html" cacheAge:3600 allowRangeRequests:YES];
   [webServer startWithPort:9999 bonjourName:@"dndproto"];
-  
-  DBSession *dbSession = [[DBSession alloc]
-                          initWithAppKey:appKey
-                          appSecret:appSecret
-                          root:kDBRootAppFolder];
-  [DBSession setSharedSession:dbSession];
   
   return YES;
 }
@@ -66,13 +54,15 @@
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
-  sourceApplication:(NSString *)source annotation:(id)annotation {
-  if ([[DBSession sharedSession] handleOpenURL:url]) {
-    if ([[DBSession sharedSession] isLinked]) {
-      NSLog(@"App linked successfully!");
-    }
+  sourceApplication:(NSString *)source annotation:(id)annotation
+{
+  
+  if ([[DBChooser defaultChooser] handleOpenURL:url]) {
+    // This was a Chooser response and handleOpenURL automatically ran the
+    // completion block
     return YES;
   }
+  
   return NO;
 }
 @end
