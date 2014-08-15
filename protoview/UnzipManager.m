@@ -31,10 +31,7 @@
       [[NSNotificationCenter defaultCenter] postNotificationName:@"ProtoviewUnzippingFilesError" object:nil];
     }
     NSData* data = [NSData dataWithContentsOfURL:downloadedZip];
-    
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"gabby" ofType:@"bundle"];
-//    NSData *data = [NSData dataWithContentsOfFile:filePath];
-    
+        
     ZZArchive* archive = [ZZArchive archiveWithData:data];
     NSError* err = nil;
     
