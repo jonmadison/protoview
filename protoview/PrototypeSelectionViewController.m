@@ -114,7 +114,7 @@
            NSString* prototypeWebserverPath = [NSString stringWithFormat:@"%@/prototypes/%@/",documentsDirectory,normalizedName];
            [Util createPrototypeDirectory:prototypeWebserverPath];
            _loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-           [_loadingHUD setLabelText:@"Processing Zip File"];
+           [_loadingHUD setLabelText:@"Fetching Zip File"];
            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
              [unzipper downloadAndUnzipFileNamed:result.name  intoDirectory:prototypeWebserverPath fromURL:result.link withCompletion:^(NSURL *unzippedLocation, NSError *unzipError) {
