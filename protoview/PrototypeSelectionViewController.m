@@ -16,13 +16,19 @@
 
 @interface PrototypeSelectionViewController ()
 @property NSString* selectedPrototype;
-@property (nonatomic,retain) NSMutableSet* prototypeList;
+@property (nonatomic,retain) NSMutableSet* prototypeSet;
+@property (nonatomic,retain) NSArray* prototypeArray;
 @end
 
 @implementation PrototypeSelectionViewController
 {
   @private
   MBProgressHUD* _loadingHUD;
+}
+
+- (NSArray*)prototypeArray
+{
+  return [_prototypeSet allObjects];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -37,13 +43,15 @@
 - (void)viewDidLoad
 {  
   [super viewDidLoad];
-  _prototypeList = [[NSMutableSet alloc]init];
+  _prototypeArray = [[NSArray alloc]init];
+  _prototypeSet = [[NSMutableSet alloc]init];
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUnzippingHUD) name:@"ProtoviewUnzippingFiles" object:nil];
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  _prototypeList = [defaults objectForKey:@"active_prototypes"];
-  if(_prototypeList==nil) _prototypeList = [[NSMutableSet alloc]init];
+  _prototypeArray = [defaults objectForKey:@"active_prototypes"];
+  _prototypeSet = [[NSMutableSet alloc]initWithArray:_prototypeArray];
+  if(_prototypeSet==nil) _prototypeSet = [[NSMutableSet alloc]init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,13 +69,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   // Return the number of rows in the section.
-  return _prototypeList.count;
+  return [[self prototypeArray] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-  NSString* prototypeName = (NSString*)[_prototypeList objectAtIndex:indexPath.row];
+  NSString* prototypeName = (NSString*)[[self prototypeArray] objectAtIndex:indexPath.row];
   [[cell textLabel] setText:prototypeName];
   return cell;
 }
@@ -83,7 +91,7 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  _selectedPrototype = _prototypeList[indexPath.row];
+  _selectedPrototype = [self prototypeArray][indexPath.row];
   return indexPath;
   
 }
@@ -95,6 +103,11 @@
                                   fromViewController:self completion:^(NSArray *results)
    {
      if ([results count]) {
+       
+       _loadingHUD = [[MBProgressHUD alloc]initWithView:self.view];
+       [_loadingHUD setLabelText:@"Processing Zip File"];
+       [_loadingHUD show:YES];
+
        for(DBChooserResult* result in results) {
          if ([result.name rangeOfString:@"zip"].location == NSNotFound) {
            NSLog(@"not a zip file yo, ain't nobody got time for that.");
@@ -114,8 +127,8 @@
                [_loadingHUD hide:YES];
                return;
              }
-             [_prototypeList addObject:normalizedName];
-             [[NSUserDefaults standardUserDefaults] setObject:_prototypeList forKey:@"active_prototypes"];
+             [_prototypeSet addObject:normalizedName];
+             [[NSUserDefaults standardUserDefaults] setObject:[self prototypeArray] forKey:@"active_prototypes"];
              [_loadingHUD hide:YES];
              [_mainTableView reloadData];
            }];
