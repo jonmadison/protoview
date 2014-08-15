@@ -12,4 +12,5 @@
 + (void)downloadFileNamed:(NSString*)fileName FromUrl:(NSURL*)url withCompletion:(void (^)(NSURL*, NSError*))completion;
 + (void)createPrototypeDirectory:(NSString*)directoryPath;
 + (void)copyPrototypeHTMLFromPath:(NSString*)fromPath toPath:(NSString*)toPath;
++ (void)removePrototypeDirectory:(NSString*)directory;
 @end

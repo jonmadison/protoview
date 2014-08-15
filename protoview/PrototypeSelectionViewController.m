@@ -46,7 +46,8 @@
   _prototypeArray = [[NSArray alloc]init];
   _prototypeSet = [[NSMutableSet alloc]init];
   
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUnzippingHUD) name:@"ProtoviewUnzippingFiles" object:nil];
+//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUnzippingHUD) name:@"ProtoviewUnzippingFiles" object:nil];
+//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUnzippingHUD) name:@"ProtoviewUnzippingDone" object:nil];
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   _prototypeArray = [defaults objectForKey:@"active_prototypes"];
@@ -82,13 +83,6 @@
 
 
 
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  // Return NO if you do not want the specified item to be editable.
-  return NO;
-}
-
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   _selectedPrototype = [self prototypeArray][indexPath.row];
@@ -99,18 +93,24 @@
 - (IBAction) didPressAddNewPrototype {
   UnzipManager* unzipper = [[UnzipManager alloc]init];
   
-  [[DBChooser defaultChooser] openChooserForLinkType:DBChooserLinkTypePreview
+  [[DBChooser defaultChooser] openChooserForLinkType:DBChooserLinkTypeDirect
                                   fromViewController:self completion:^(NSArray *results)
    {
      if ([results count]) {
-       
-       _loadingHUD = [[MBProgressHUD alloc]initWithView:self.view];
-       [_loadingHUD setLabelText:@"Processing Zip File"];
-       [_loadingHUD show:YES];
+       dispatch_async(dispatch_get_main_queue(), ^{
+         _loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+         [_loadingHUD setLabelText:@"Processing Zip File"];
+         [_loadingHUD show:YES];
+       });
 
        for(DBChooserResult* result in results) {
          if ([result.name rangeOfString:@"zip"].location == NSNotFound) {
            NSLog(@"not a zip file yo, ain't nobody got time for that.");
+           dispatch_async(dispatch_get_main_queue(), ^{
+             [_loadingHUD setLabelText:@"Invalid File Type"];
+             [_loadingHUD hide:YES];
+           });
+           return;
          } else {
            NSLog(@"zip file, processing");
            NSString *normalizedName = [result.name
@@ -124,13 +124,17 @@
              if(unzipError) {
                NSLog(@"unzipper error: %@",[unzipError localizedDescription]);
                _loadingHUD.labelText = @"Error Loading...";
-               [_loadingHUD hide:YES];
+               dispatch_async(dispatch_get_main_queue(), ^{
+                 [_loadingHUD hide:YES];
+               });
                return;
              }
              [_prototypeSet addObject:normalizedName];
              [[NSUserDefaults standardUserDefaults] setObject:[self prototypeArray] forKey:@"active_prototypes"];
-             [_loadingHUD hide:YES];
-             [_mainTableView reloadData];
+             dispatch_async(dispatch_get_main_queue(), ^{
+               [_loadingHUD hide:YES];
+               [_mainTableView reloadData];
+             });
            }];
          }
        }
@@ -138,6 +142,20 @@
        // User canceled the action
      }
    }];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (editingStyle == UITableViewCellEditingStyleDelete) {
+    NSString* prototypeName = [[self prototypeArray] objectAtIndex:indexPath.row];
+    [Util removePrototypeDirectory:prototypeName];
+    [_prototypeSet removeObject:prototypeName];
+    [tableView reloadData]; // tell table to refresh now
+  }
 }
 
 - (void)showUnzippingHUD {

@@ -67,9 +67,7 @@
   if(error) {
     NSLog(@"error creating temp dir %@",[error localizedDescription]);
   }
-  NSString* fullDownloadString = [NSString stringWithFormat:@"%@?dl=1",[url absoluteString]];
-  NSURL* fullDownloadURL = [NSURL URLWithString:fullDownloadString];
-  NSURLRequest* request = [NSURLRequest requestWithURL:fullDownloadURL];
+  NSURLRequest* request = [NSURLRequest requestWithURL:url];
   NSURLResponse* response = nil;
 
   NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
@@ -87,5 +85,19 @@
   
   completion(fileURL,nil);
   
+}
+
++ (void)removePrototypeDirectory:(NSString *)directory
+{
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString *documentsDirectory = [paths objectAtIndex:0];
+  NSString* prototypesPath = [NSString stringWithFormat:@"%@/prototypes/%@",documentsDirectory,directory];
+  
+  NSError* error;
+  [[NSFileManager defaultManager] removeItemAtPath:prototypesPath error:&error];
+  if(error) {
+    NSLog(@"error removing prototype dir: %@",[error localizedDescription]);
+  }
+
 }
 @end
