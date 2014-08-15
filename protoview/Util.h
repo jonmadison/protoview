@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Util : NSObject
-+ (void)createDirectory:(NSString*)directoryPath;
++ (void)downloadFileNamed:(NSString*)fileName FromUrl:(NSURL*)url withCompletion:(void (^)(NSURL*, NSError*))completion;
++ (void)createPrototypeDirectory:(NSString*)directoryPath;
 + (void)copyPrototypeHTMLFromPath:(NSString*)fromPath toPath:(NSString*)toPath;
 @end

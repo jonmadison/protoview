@@ -9,14 +9,21 @@
 #import "PrototypeSelectionViewController.h"
 #import "ViewController.h"
 #import "Util.h"
+#import <MBProgressHUD.h>
 #import <DBChooser.h>
+#import <zipzap.h>
+#import "UnzipManager.h"
 
 @interface PrototypeSelectionViewController ()
 @property NSString* selectedPrototype;
-@property (nonatomic,retain) NSMutableArray* prototypeList;
+@property (nonatomic,retain) NSMutableSet* prototypeList;
 @end
 
 @implementation PrototypeSelectionViewController
+{
+  @private
+  MBProgressHUD* _loadingHUD;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,9 +35,15 @@
 }
 
 - (void)viewDidLoad
-{
+{  
   [super viewDidLoad];
-  _prototypeList = [[NSMutableArray alloc]init];
+  _prototypeList = [[NSMutableSet alloc]init];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUnzippingHUD) name:@"ProtoviewUnzippingFiles" object:nil];
+  
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  _prototypeList = [defaults objectForKey:@"active_prototypes"];
+  if(_prototypeList==nil) _prototypeList = [[NSMutableSet alloc]init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,26 +89,47 @@
 }
 
 - (IBAction) didPressAddNewPrototype {
+  UnzipManager* unzipper = [[UnzipManager alloc]init];
+  
   [[DBChooser defaultChooser] openChooserForLinkType:DBChooserLinkTypePreview
                                   fromViewController:self completion:^(NSArray *results)
    {
      if ([results count]) {
-       // Process results from Chooser
+       for(DBChooserResult* result in results) {
+         if ([result.name rangeOfString:@"zip"].location == NSNotFound) {
+           NSLog(@"not a zip file yo, ain't nobody got time for that.");
+         } else {
+           NSLog(@"zip file, processing");
+           NSString *normalizedName = [result.name
+                                       stringByReplacingOccurrencesOfString:@".zip" withString:@""];
+           NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+           NSString *documentsDirectory = [paths objectAtIndex:0];
+           NSString* prototypeWebserverPath = [NSString stringWithFormat:@"%@/prototypes/%@/",documentsDirectory,normalizedName];
+           [Util createPrototypeDirectory:prototypeWebserverPath];
+           
+           [unzipper unzipFileNamed:result.name  intoDirectory:prototypeWebserverPath fromURL:result.link withCompletion:^(NSURL *unzippedLocation, NSError *unzipError) {
+             if(unzipError) {
+               NSLog(@"unzipper error: %@",[unzipError localizedDescription]);
+               _loadingHUD.labelText = @"Error Loading...";
+               [_loadingHUD hide:YES];
+               return;
+             }
+             [_prototypeList addObject:normalizedName];
+             [[NSUserDefaults standardUserDefaults] setObject:_prototypeList forKey:@"active_prototypes"];
+             [_loadingHUD hide:YES];
+             [_mainTableView reloadData];
+           }];
+         }
+       }
      } else {
        // User canceled the action
      }
-   }];}
-
-- (void)showDropboxFilePicker {
-  
+   }];
 }
 
-- (void)copyPrototypesFrom:(NSString*)path toPrototypesPath:(NSString*)prototypesPath {
-  [Util createDirectory:prototypesPath];
-  
-  for(NSString* path in _prototypeList) {
-    [Util copyPrototypeHTMLFromPath:path toPath:prototypesPath];
-  }
+- (void)showUnzippingHUD {
+  [_loadingHUD setLabelText:@"Unzipping..."];
+  [_loadingHUD show:YES];
 }
 
 #pragma mark - Navigation

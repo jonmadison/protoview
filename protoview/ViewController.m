@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "WebServerManager.h"
 #import <MBProgressHUD.h>
 
 @interface ViewController ()
@@ -14,6 +15,9 @@
 @end
 
 @implementation ViewController
+{
+@private WebServerManager* _webserverManager;
+}
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -23,9 +27,11 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  _webserverManager = [WebServerManager instance];
   UILongPressGestureRecognizer* longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(closeMe)];
   [longPress setNumberOfTouchesRequired:3];
   [_mainWebView addGestureRecognizer:longPress];
+  [_webserverManager startWebServerWithRoot:@"/prototypes" andPort:9999];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -37,6 +43,8 @@
 {
   NSLog(@"selected prototype %@",_currentPrototype);
   NSString* requestedUrl = [NSString stringWithFormat:@"http://127.0.0.1:9999/%@/index.html",_currentPrototype];
+  NSLog(@"requesting URL %@",requestedUrl);
+  
   NSURL *url = [NSURL URLWithString:requestedUrl];
   NSURLRequest* urlRequest = [NSURLRequest requestWithURL:url];
   
@@ -44,16 +52,18 @@
   hud.labelText = @"Loading";
 
   dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-    [_mainWebView loadRequest:urlRequest];
     dispatch_async(dispatch_get_main_queue(), ^{
       [hud hide:YES];
+      [_mainWebView loadRequest:urlRequest];
     });
   });
 }
 
 - (void)closeMe {
   if (![self.presentedViewController isBeingDismissed]) {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+      [_webserverManager stopWebServer];
+    }];
   }
 }
 

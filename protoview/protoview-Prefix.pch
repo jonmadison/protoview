@@ -14,3 +14,6 @@
   #import <UIKit/UIKit.h>
   #import <Foundation/Foundation.h>
 #endif
+
+#define WEBSERVER_BONJOUR_NAME @"dndproto"
+#define WEBSERVER_CACHE_AGE 3600

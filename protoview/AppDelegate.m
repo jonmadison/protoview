@@ -14,15 +14,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{  
-  GCDWebServer* webServer = [[GCDWebServer alloc] init];
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *documentsDirectory = [paths objectAtIndex:0];
-  NSString* prototypesPath = [NSString stringWithFormat:@"%@/%@",documentsDirectory,@"prototypes"];
-    
-  [webServer addGETHandlerForBasePath:@"/" directoryPath:prototypesPath indexFilename:@"index.html" cacheAge:3600 allowRangeRequests:YES];
-  [webServer startWithPort:9999 bonjourName:@"dndproto"];
-  
+{
   return YES;
 }
 							

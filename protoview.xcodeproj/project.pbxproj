@@ -28,6 +28,8 @@
 		847B5CCF199C83A300F84CEE /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 847B5CCE199C83A300F84CEE /* Util.m */; };
 		84D6554C199D09090059696B /* PrototypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6554B199D09090059696B /* PrototypeSelectionViewController.m */; };
 		84D65550199D340B0059696B /* dropbox-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D6554F199D340B0059696B /* dropbox-logo.png */; };
+		84FDE841199D863A00C8197E /* UnzipManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDE840199D863A00C8197E /* UnzipManager.m */; };
+		84FDE844199DA25C00C8197E /* WebServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDE843199DA25C00C8197E /* WebServerManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,10 @@
 		84D6554A199D09090059696B /* PrototypeSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrototypeSelectionViewController.h; sourceTree = "<group>"; };
 		84D6554B199D09090059696B /* PrototypeSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrototypeSelectionViewController.m; sourceTree = "<group>"; };
 		84D6554F199D340B0059696B /* dropbox-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-logo.png"; sourceTree = "<group>"; };
+		84FDE83F199D863A00C8197E /* UnzipManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnzipManager.h; sourceTree = "<group>"; };
+		84FDE840199D863A00C8197E /* UnzipManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnzipManager.m; sourceTree = "<group>"; };
+		84FDE842199DA25C00C8197E /* WebServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServerManager.h; sourceTree = "<group>"; };
+		84FDE843199DA25C00C8197E /* WebServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebServerManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +140,8 @@
 		841AEF54199C2D1E00D0CBFD /* protoview */ = {
 			isa = PBXGroup;
 			children = (
+				84FDE83F199D863A00C8197E /* UnzipManager.h */,
+				84FDE840199D863A00C8197E /* UnzipManager.m */,
 				841AF073199C798900D0CBFD /* ViewControllers */,
 				841AEF5D199C2D1E00D0CBFD /* AppDelegate.h */,
 				841AEF5E199C2D1E00D0CBFD /* AppDelegate.m */,
@@ -142,6 +150,8 @@
 				841AEF55199C2D1E00D0CBFD /* Supporting Files */,
 				847B5CCD199C83A300F84CEE /* Util.h */,
 				847B5CCE199C83A300F84CEE /* Util.m */,
+				84FDE842199DA25C00C8197E /* WebServerManager.h */,
+				84FDE843199DA25C00C8197E /* WebServerManager.m */,
 			);
 			path = protoview;
 			sourceTree = "<group>";
@@ -338,6 +348,8 @@
 				841AEF65199C2D1E00D0CBFD /* ViewController.m in Sources */,
 				84D6554C199D09090059696B /* PrototypeSelectionViewController.m in Sources */,
 				841AEF5F199C2D1E00D0CBFD /* AppDelegate.m in Sources */,
+				84FDE844199DA25C00C8197E /* WebServerManager.m in Sources */,
+				84FDE841199D863A00C8197E /* UnzipManager.m in Sources */,
 				841AEF5B199C2D1E00D0CBFD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
