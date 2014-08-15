@@ -1,4 +1,7 @@
-To use this app you'll need to register for a dropbox app key for the Chooser.
+To use this app you'll need to register for a Dropbox app key. Choose
+"Drop-In". 
+
+https://www.dropbox.com/developers/apps
 
 Then, set up a URL scheme. From DropBox doc:
 
