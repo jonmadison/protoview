@@ -6,6 +6,4 @@ target "protoview" do
   pod 'MBProgressHUD', '~> 0.9'
   pod 'DBChooser', '~> 1.1'
   pod 'zipzap', '~> 7.0'
-  pod 'ZipArchive', '~> 1.3'
-  pod 'SSZipArchive', '~> 0.3'
 end
