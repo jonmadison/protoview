@@ -15,21 +15,32 @@
   return [super init];
 }
 
+-(void)unzipFile:(NSString*)fileName intoDirectory:(NSString*)destinationDirectory
+{
+  NSString* fileNamePart = [[fileName lastPathComponent] stringByDeletingPathExtension];
+  NSString* extension = [fileName pathExtension];
+  NSString* filePath = [[NSBundle mainBundle] pathForResource:fileNamePart ofType:extension];
+  NSData* data = [NSData dataWithContentsOfFile:filePath];
+  
+  ZZArchive* archive = [ZZArchive archiveWithData:data];
+}
 
--(void)unzipFileNamed:(NSString*)fileName intoDirectory:(NSString*) destinationDirectory fromURL:(NSURL *)url withCompletion:(void(^)(NSURL*,NSError*))completion
+-(void)downloadAndUnzipFileNamed:(NSString*)fileName intoDirectory:(NSString*) destinationDirectory fromURL:(NSURL *)url withCompletion:(void(^)(NSURL*,NSError*))completion
 {
   NSError* error = nil;
   NSURL *directoryURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]] isDirectory:YES];
   [[NSFileManager defaultManager] createDirectoryAtURL:directoryURL withIntermediateDirectories:YES attributes:nil error:&error];
   
-  
   NSFileManager* fileManager = [NSFileManager defaultManager];
   
-  [[NSNotificationCenter defaultCenter] postNotificationName:@"ProtoviewUnzippingFiles" object:nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"ProtoviewDownloadingFiles" object:nil];
   [Util downloadFileNamed:fileName FromUrl:url withCompletion:^(NSURL *downloadedZip, NSError *downloadError) {
     if(downloadError) {
       [[NSNotificationCenter defaultCenter] postNotificationName:@"ProtoviewUnzippingFilesError" object:nil];
+      return completion(nil,error);
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ProtoviewUnzippingFiles" object:nil];
+
     NSData* data = [NSData dataWithContentsOfURL:downloadedZip];
         
     ZZArchive* archive = [ZZArchive archiveWithData:data];

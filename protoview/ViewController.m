@@ -32,6 +32,9 @@
   [longPress setNumberOfTouchesRequired:3];
   [_mainWebView addGestureRecognizer:longPress];
   [_webserverManager startWebServerWithRoot:@"/prototypes" andPort:9999];
+  [_mainWebView.scrollView setDelegate:self];
+  [_mainWebView.scrollView setShowsHorizontalScrollIndicator:NO];
+  [_mainWebView.scrollView setShowsHorizontalScrollIndicator:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -85,4 +88,14 @@
     [self closeMe];
   }
 }
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+  if (scrollView.contentOffset.y > 0 || scrollView.contentOffset.y < 0)
+    scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, 0);
+
+  if (scrollView.contentOffset.x > 0)
+    scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y);
+}
+
 @end

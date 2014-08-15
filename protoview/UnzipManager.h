@@ -13,5 +13,6 @@
 @interface UnzipManager : NSObject
 @property (nonatomic,retain) ZZArchive* zipArchive;
 
--(void)unzipFileNamed:(NSString*)fileName intoDirectory:(NSString*) destinationDirectory fromURL:(NSURL *)url withCompletion:(void(^)(NSURL*,NSError*))completion;
+-(void)downloadAndUnzipFileNamed:(NSString*)fileName intoDirectory:(NSString*) destinationDirectory fromURL:(NSURL *)url withCompletion:(void(^)(NSURL*,NSError*))completion;
+-(void)unzipFile:(NSString*)fileName intoDirectory:(NSString*)destinationDirectory;
 @end
