@@ -1,9 +1,6 @@
-to use this app you'll need to register for a dropbox API. 
+To use this app you'll need to register for a dropbox app key for the Chooser.
 
-then copy appKeys.plist.dist to appKeys.plist and replace with your key and
-secret
-
-then set up a URL scheme. From DropBox doc:
+Then, set up a URL scheme. From DropBox doc:
 
 ##Creating a URL scheme
 
