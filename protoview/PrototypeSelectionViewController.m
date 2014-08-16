@@ -16,19 +16,13 @@
 
 @interface PrototypeSelectionViewController ()
 @property NSString* selectedPrototype;
-@property (nonatomic,retain) NSMutableSet* prototypeSet;
-@property (nonatomic,retain) NSArray* prototypeArray;
+@property (nonatomic,retain) NSMutableArray* siteList;
 @end
 
 @implementation PrototypeSelectionViewController
 {
   @private
   MBProgressHUD* _loadingHUD;
-}
-
-- (NSArray*)prototypeArray
-{
-  return [_prototypeSet allObjects];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -43,16 +37,14 @@
 - (void)viewDidLoad
 {  
   [super viewDidLoad];
-  _prototypeArray = [[NSArray alloc]init];
-  _prototypeSet = [[NSMutableSet alloc]init];
-  
+  _siteList = [[NSMutableArray alloc]init];
+ 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showDownloadingHUD) name:@"ProtoviewDownloadingFiles" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUnzippingHUD) name:@"ProtoviewUnzippingFiles" object:nil];
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  _prototypeArray = [defaults objectForKey:@"active_prototypes"];
-  _prototypeSet = [[NSMutableSet alloc]initWithArray:_prototypeArray];
-  if(_prototypeSet==nil) _prototypeSet = [[NSMutableSet alloc]init];
+  _siteList = [defaults objectForKey:@"available_sites"];
+  if(_siteList==nil) _siteList = [[NSMutableArray alloc]init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,21 +62,21 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   // Return the number of rows in the section.
-  return [[self prototypeArray] count];
+  return _siteList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-  NSString* prototypeName = (NSString*)[[self prototypeArray] objectAtIndex:indexPath.row];
-  [[cell textLabel] setText:prototypeName];
+  NSDictionary* siteInfo = (NSDictionary*)_siteList[indexPath.row];
+  [[cell textLabel] setText:siteInfo[@"name"]];
   return cell;
 }
 
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  _selectedPrototype = [self prototypeArray][indexPath.row];
+  _selectedPrototype = _siteList[indexPath.row];
   return indexPath;
   
 }
@@ -124,8 +116,10 @@
                  [_loadingHUD hide:YES];
                  return;
                }
-               [_prototypeSet addObject:normalizedName];
-               [[NSUserDefaults standardUserDefaults] setObject:[self prototypeArray] forKey:@"active_prototypes"];
+               NSDictionary* siteInfo = @{@"name":normalizedName};
+               
+               [_siteList addObject:siteInfo];
+                [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"available_sites"];
                [_loadingHUD hide:YES];
                [_mainTableView reloadData];
              }];
@@ -146,10 +140,11 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    NSString* prototypeName = [[self prototypeArray] objectAtIndex:indexPath.row];
+    NSDictionary* siteInfo = (NSDictionary*)_siteList[indexPath.row];
+    NSString* prototypeName = siteInfo[@"name"];
     [Util removePrototypeDirectory:prototypeName];
-    [_prototypeSet removeObject:prototypeName];
-    [[NSUserDefaults standardUserDefaults] setObject:[self prototypeArray] forKey:@"active_prototypes"];
+    [_siteList removeObject:siteInfo];
+    [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"active_prototypes"];
     [tableView reloadData]; // tell table to refresh now
   }
 }
