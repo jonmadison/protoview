@@ -12,6 +12,7 @@
 #import <MBProgressHUD.h>
 #import <DBChooser.h>
 #import <zipzap.h>
+#import <DateTools.h>
 #import "UnzipManager.h"
 
 @interface PrototypeSelectionViewController ()
@@ -70,6 +71,8 @@
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
   NSDictionary* siteInfo = (NSDictionary*)_siteList[indexPath.row];
   [[cell textLabel] setText:siteInfo[@"name"]];
+  NSString* timeAgoString = [(NSDate*)siteInfo[@"createdAt"] timeAgoSinceNow];
+  [cell.detailTextLabel setText:timeAgoString];
   return cell;
 }
 
@@ -116,7 +119,9 @@
                  [_loadingHUD hide:YES];
                  return;
                }
-               NSDictionary* siteInfo = @{@"name":normalizedName};
+               NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
+               NSDictionary* siteInfo = @{@"name":normalizedName,
+                                          @"createdAt":date};
                
                [_siteList addObject:siteInfo];
                 [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"available_sites"];
