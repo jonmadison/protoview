@@ -24,7 +24,6 @@
 		841AEF78199C2D1E00D0CBFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841AEF76199C2D1E00D0CBFD /* InfoPlist.strings */; };
 		841AEF7A199C2D1E00D0CBFD /* protoviewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AEF79199C2D1E00D0CBFD /* protoviewTests.m */; };
 		84405AD8199EDB12001D6E5E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 84405AD7199EDB12001D6E5E /* Constants.m */; };
-		84405ADC199F28FF001D6E5E /* MWWebSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 84405ADB199F28FF001D6E5E /* MWWebSnapshot.m */; };
 		847B5CCF199C83A300F84CEE /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 847B5CCE199C83A300F84CEE /* Util.m */; };
 		84D6554C199D09090059696B /* PrototypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6554B199D09090059696B /* PrototypeSelectionViewController.m */; };
 		84D65550199D340B0059696B /* dropbox-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D6554F199D340B0059696B /* dropbox-logo.png */; };
@@ -68,8 +67,6 @@
 		841AEF79199C2D1E00D0CBFD /* protoviewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = protoviewTests.m; sourceTree = "<group>"; };
 		84405AD6199EDB12001D6E5E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		84405AD7199EDB12001D6E5E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		84405ADA199F28FF001D6E5E /* MWWebSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWWebSnapshot.h; sourceTree = "<group>"; };
-		84405ADB199F28FF001D6E5E /* MWWebSnapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWWebSnapshot.m; sourceTree = "<group>"; };
 		847B5CCD199C83A300F84CEE /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		847B5CCE199C83A300F84CEE /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		84D6554A199D09090059696B /* PrototypeSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrototypeSelectionViewController.h; sourceTree = "<group>"; };
@@ -214,8 +211,6 @@
 		84405AD9199F288F001D6E5E /* 3rdparty */ = {
 			isa = PBXGroup;
 			children = (
-				84405ADA199F28FF001D6E5E /* MWWebSnapshot.h */,
-				84405ADB199F28FF001D6E5E /* MWWebSnapshot.m */,
 			);
 			name = 3rdparty;
 			sourceTree = "<group>";
@@ -353,7 +348,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84405ADC199F28FF001D6E5E /* MWWebSnapshot.m in Sources */,
 				847B5CCF199C83A300F84CEE /* Util.m in Sources */,
 				84092BDE199D3FC9005F5D64 /* NamePrototypeDialog.m in Sources */,
 				841AEF65199C2D1E00D0CBFD /* ViewController.m in Sources */,
