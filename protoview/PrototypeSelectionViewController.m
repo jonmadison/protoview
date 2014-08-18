@@ -166,7 +166,7 @@
     Site* site = [Site objectFromData:_siteList[allKeys[indexPath.row]]];
     [Util removePrototypeDirectory:site.identifier];
     [_siteList removeObjectForKey:site.identifier];
-    [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"active_prototypes"];
+    [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:kProtoviewAvailableSites];
     [tableView reloadData]; // tell table to refresh now
   }
 }
