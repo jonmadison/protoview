@@ -66,9 +66,7 @@
     NSLog(@"error writing downloaded file: %@",[error localizedDescription]);
     completion(nil,error);
   }
-  
   completion(fileURL,nil);
-  
 }
 
 + (void)removePrototypeDirectory:(NSString *)directory
@@ -98,8 +96,9 @@
 }
 
 + (void)updateAvailableSite:(Site*)site {
-  NSMutableDictionary* siteList = [[NSUserDefaults standardUserDefaults] objectForKey:kProtoviewAvailableSites];
+  NSMutableDictionary* siteList = [[[NSUserDefaults standardUserDefaults] objectForKey:kProtoviewAvailableSites] mutableCopy];
 //  Site* oldSite = [Site objectFromData:siteList[site.identifier]];
+//  [siteList removeObjectForKey:site.identifier];
   [siteList setObject:[site asData] forKey:site.identifier];
   [[NSUserDefaults standardUserDefaults] setObject:siteList forKey:kProtoviewAvailableSites];
 }

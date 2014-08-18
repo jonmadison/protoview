@@ -36,9 +36,12 @@
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-  [super viewDidAppear:animated];
+  [super viewWillAppear:animated];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  _siteList = [defaults objectForKey:kProtoviewAvailableSites];
+  if(_siteList==nil) _siteList = [[NSMutableDictionary alloc]init];
   [_mainTableView reloadData];
 }
 
@@ -47,10 +50,6 @@
   [super viewDidLoad];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showDownloadingHUD) name:@"ProtoviewDownloadingFiles" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUnzippingHUD) name:@"ProtoviewUnzippingFiles" object:nil];
-  
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  _siteList = [defaults objectForKey:kProtoviewAvailableSites];
-  if(_siteList==nil) _siteList = [[NSMutableDictionary alloc]init];
 }
 
 - (void)didReceiveMemoryWarning
