@@ -82,7 +82,12 @@
 {
   _selectedSite = [Site objectFromData:_siteList[indexPath.row]];
   return indexPath;
-  
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  //Change the selected background view of the cell.
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (IBAction) didPressAddNewPrototype {
