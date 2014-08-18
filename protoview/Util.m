@@ -29,16 +29,7 @@
 
 
 + (void)copyPrototypeHTMLFromPath:(NSString*)fromPath toPath:(NSString*)toPath {
-  //create destination directory
-  
-//  NSString* destPath = [NSString stringWithFormat:@"%@/%@",toPath,fromPath];
-  
   NSError* error = nil;
-//  
-//  NSString *sourcePath = [[NSBundle mainBundle] bundlePath];
-//  NSString *bundleName = [NSString stringWithFormat:@"/%@.bundle",fromPath];
-//  sourcePath = [sourcePath stringByAppendingString:bundleName];
-  
   if([[NSFileManager defaultManager] fileExistsAtPath:toPath]) {
     if (![[NSFileManager defaultManager] removeItemAtPath:toPath error:&error])	//Delete it
 		{
@@ -52,13 +43,6 @@
         error:&error])
     NSLog(@"%@", [error localizedDescription]);
 }
-
-
-/*
- Download a file from a URL and return the destination path.
- */
-//- (void)someMethodThatTakesABlock:(returnType (^)(parameterTypes))blockName;
-
 
 + (void)downloadFileNamed:(NSString*)fileName FromUrl:(NSURL*)url withCompletion:(void (^)(NSURL*, NSError*))completion {
   NSError* error = nil;
@@ -100,6 +84,5 @@
   } else {
     NSLog(@"removed dir: %@", prototypesPath);
   }
-
 }
 @end

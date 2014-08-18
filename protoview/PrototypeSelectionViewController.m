@@ -113,6 +113,8 @@
            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
            NSString *documentsDirectory = [paths objectAtIndex:0];
            _loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+           [_loadingHUD setBackgroundColor:[UIColor whiteColor]];
+           [_loadingHUD setColor:[UIColor blackColor]];
            [_loadingHUD setLabelText:@"Fetching Zip File"];
            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -154,8 +156,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     Site* site = [Site objectFromData:_siteList[indexPath.row]];
-    [Util removePrototypeDirectory:site.friendlyName];
-    [_siteList removeObject:site];
+    [Util removePrototypeDirectory:site.identifier];
+    [_siteList removeObjectAtIndex:indexPath.row];
     [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"active_prototypes"];
     [tableView reloadData]; // tell table to refresh now
   }
