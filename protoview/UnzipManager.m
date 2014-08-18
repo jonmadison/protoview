@@ -1,3 +1,4 @@
+
 //
 //  UnzipManager.m
 //  protoview
@@ -24,13 +25,14 @@
   NSFileManager* fileManager = [NSFileManager defaultManager];
   
   [[NSNotificationCenter defaultCenter] postNotificationName:@"ProtoviewDownloadingFiles" object:nil];
+  [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
   [Util downloadFileNamed:fileName FromUrl:url withCompletion:^(NSURL *downloadedZip, NSError *downloadError) {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if(downloadError) {
       [[NSNotificationCenter defaultCenter] postNotificationName:@"ProtoviewUnzippingFilesError" object:nil];
       return completion(nil,error);
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ProtoviewUnzippingFiles" object:nil];
-
     NSData* data = [NSData dataWithContentsOfURL:downloadedZip];
         
     ZZArchive* archive = [ZZArchive archiveWithData:data];

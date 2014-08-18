@@ -36,6 +36,12 @@
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+  [super viewDidAppear:animated];
+  [_mainTableView reloadData];
+}
+
 - (void)viewDidLoad
 {  
   [super viewDidLoad];
@@ -72,6 +78,7 @@
   
   Site* site = [Site objectFromData:_siteList[allKeys[indexPath.row]]];
   [[cell textLabel] setText:site.friendlyName];
+  [[cell imageView] setImage:site.thumbnail];
   NSString* timeAgoString = [(NSDate*)site.createdAt timeAgoSinceNow];
   [cell.detailTextLabel setText:timeAgoString];
   return cell;
@@ -166,19 +173,11 @@
 }
 
 - (void)showDownloadingHUD {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [_loadingHUD hide:YES];
     [_loadingHUD setLabelText:@"Downloading..."];
-    [_loadingHUD show:YES];
-  });
 }
 
 - (void)showUnzippingHUD {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [_loadingHUD hide:YES];
     [_loadingHUD setLabelText:@"Unzipping..."];
-    [_loadingHUD show:YES];
-  });
 }
 
 #pragma mark - Navigation

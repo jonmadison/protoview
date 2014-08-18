@@ -49,7 +49,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="437"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="Yi8-La-QBW" detailTextLabel="R6u-z1-Z6l" rowHeight="78" style="IBUITableViewCellStyleSubtitle" id="A4Q-ef-WFd">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="Yi8-La-QBW" detailTextLabel="R6u-z1-Z6l" imageView="eNN-BY-NP7" rowHeight="78" style="IBUITableViewCellStyleSubtitle" id="A4Q-ef-WFd">
                                         <rect key="frame" x="0.0" y="22" width="320" height="78"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A4Q-ef-WFd" id="JX7-Ax-bO5">
@@ -70,6 +70,9 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="purple" id="eNN-BY-NP7">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -122,6 +125,9 @@
             <point key="canvasLocation" x="-828" y="-14"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="purple" width="120" height="120"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

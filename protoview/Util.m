@@ -97,7 +97,10 @@
   return newImage;
 }
 
-+ (void)updateAvailableSiteWithId:(NSString*)identifier{
-  NSMutableArray* siteList = [[NSUserDefaults standardUserDefaults] objectForKey:kProtoviewAvailableSites];
++ (void)updateAvailableSite:(Site*)site {
+  NSMutableDictionary* siteList = [[NSUserDefaults standardUserDefaults] objectForKey:kProtoviewAvailableSites];
+//  Site* oldSite = [Site objectFromData:siteList[site.identifier]];
+  [siteList setObject:[site asData] forKey:site.identifier];
+  [[NSUserDefaults standardUserDefaults] setObject:siteList forKey:kProtoviewAvailableSites];
 }
 @end

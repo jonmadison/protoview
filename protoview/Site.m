@@ -39,7 +39,7 @@
     self.friendlyName = [coder decodeObjectForKey:@"SiteFriendlyName"];
     self.identifier = [coder decodeObjectForKey:@"SiteURL"];
     self.createdAt = [coder decodeObjectForKey:@"SiteCreatedAt"];
-    self.createdAt = [coder decodeObjectForKey:@"SiteThumbnail"];
+    self.thumbnail = [coder decodeObjectForKey:@"SiteThumbnail"];
   }
   return self;
 }

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Site.h"
 
-@interface ViewController : UIViewController <UIScrollViewDelegate>
+@interface ViewController : UIViewController <UIScrollViewDelegate,UIWebViewDelegate>
 @property (nonatomic,retain) Site* selectedSite;
 @end

@@ -28,6 +28,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  [_mainWebView setDelegate:self];
   _webserverManager = [WebServerManager instance];
   UILongPressGestureRecognizer* longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(closeMe)];
   [longPress setNumberOfTouchesRequired:3];
@@ -107,6 +108,12 @@
   
   UIImage* thumb = [Util imageWithImage:resultImageView scaledToSize:CGSizeMake(50, 50)];
   _selectedSite.thumbnail = thumb;
+  [Util updateAvailableSite:_selectedSite];
   
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+  [self saveThumbnail];
 }
 @end

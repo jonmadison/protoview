@@ -8,4 +8,4 @@
 
 #import "Constants.h"
 
-NSString* const kAvailableSites = @"protoview_available_sites";
+NSString* const kProtoviewAvailableSites = @"protoview_available_sites";

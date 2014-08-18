@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Site.h"
 
 @interface Util : NSObject
 + (void)downloadFileNamed:(NSString*)fileName FromUrl:(NSURL*)url withCompletion:(void (^)(NSURL*, NSError*))completion;
 + (void)createPrototypeDirectory:(NSString*)directoryPath;
 + (void)copyPrototypeHTMLFromPath:(NSString*)fromPath toPath:(NSString*)toPath;
 + (void)removePrototypeDirectory:(NSString*)directory;
++ (void)updateAvailableSite:(Site*)site;
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 @end
