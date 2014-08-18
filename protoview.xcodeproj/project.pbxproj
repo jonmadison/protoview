@@ -25,6 +25,7 @@
 		841AEF7A199C2D1E00D0CBFD /* protoviewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AEF79199C2D1E00D0CBFD /* protoviewTests.m */; };
 		84405AD8199EDB12001D6E5E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 84405AD7199EDB12001D6E5E /* Constants.m */; };
 		847B5CCF199C83A300F84CEE /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 847B5CCE199C83A300F84CEE /* Util.m */; };
+		84B5709B19A1BAA400B388B4 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5709A19A1BAA400B388B4 /* Site.m */; };
 		84D6554C199D09090059696B /* PrototypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6554B199D09090059696B /* PrototypeSelectionViewController.m */; };
 		84D65550199D340B0059696B /* dropbox-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D6554F199D340B0059696B /* dropbox-logo.png */; };
 		84FDE841199D863A00C8197E /* UnzipManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDE840199D863A00C8197E /* UnzipManager.m */; };
@@ -69,6 +70,8 @@
 		84405AD7199EDB12001D6E5E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		847B5CCD199C83A300F84CEE /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		847B5CCE199C83A300F84CEE /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
+		84B5709919A1BAA400B388B4 /* Site.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Site.h; sourceTree = "<group>"; };
+		84B5709A19A1BAA400B388B4 /* Site.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Site.m; sourceTree = "<group>"; };
 		84D6554A199D09090059696B /* PrototypeSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrototypeSelectionViewController.h; sourceTree = "<group>"; };
 		84D6554B199D09090059696B /* PrototypeSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrototypeSelectionViewController.m; sourceTree = "<group>"; };
 		84D6554F199D340B0059696B /* dropbox-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-logo.png"; sourceTree = "<group>"; };
@@ -142,18 +145,20 @@
 				84405AD9199F288F001D6E5E /* 3rdparty */,
 				84FDE83F199D863A00C8197E /* UnzipManager.h */,
 				84FDE840199D863A00C8197E /* UnzipManager.m */,
+				84FDE842199DA25C00C8197E /* WebServerManager.h */,
+				84FDE843199DA25C00C8197E /* WebServerManager.m */,
+				84405AD6199EDB12001D6E5E /* Constants.h */,
+				84405AD7199EDB12001D6E5E /* Constants.m */,
+				84B5709919A1BAA400B388B4 /* Site.h */,
+				84B5709A19A1BAA400B388B4 /* Site.m */,
+				847B5CCD199C83A300F84CEE /* Util.h */,
+				847B5CCE199C83A300F84CEE /* Util.m */,
 				841AF073199C798900D0CBFD /* ViewControllers */,
 				841AEF5D199C2D1E00D0CBFD /* AppDelegate.h */,
 				841AEF5E199C2D1E00D0CBFD /* AppDelegate.m */,
 				841AEF60199C2D1E00D0CBFD /* Main.storyboard */,
 				841AEF66199C2D1E00D0CBFD /* Images.xcassets */,
 				841AEF55199C2D1E00D0CBFD /* Supporting Files */,
-				847B5CCD199C83A300F84CEE /* Util.h */,
-				847B5CCE199C83A300F84CEE /* Util.m */,
-				84FDE842199DA25C00C8197E /* WebServerManager.h */,
-				84FDE843199DA25C00C8197E /* WebServerManager.m */,
-				84405AD6199EDB12001D6E5E /* Constants.h */,
-				84405AD7199EDB12001D6E5E /* Constants.m */,
 			);
 			path = protoview;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B5709B19A1BAA400B388B4 /* Site.m in Sources */,
 				847B5CCF199C83A300F84CEE /* Util.m in Sources */,
 				84092BDE199D3FC9005F5D64 /* NamePrototypeDialog.m in Sources */,
 				841AEF65199C2D1E00D0CBFD /* ViewController.m in Sources */,

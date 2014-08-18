@@ -13,6 +13,7 @@
 #import <DBChooser.h>
 #import <zipzap.h>
 #import <DateTools.h>
+#import "Site.h"
 #import "UnzipManager.h"
 
 @interface PrototypeSelectionViewController ()
@@ -69,9 +70,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-  NSDictionary* siteInfo = (NSDictionary*)_siteList[indexPath.row];
-  [[cell textLabel] setText:siteInfo[@"name"]];
-  NSString* timeAgoString = [(NSDate*)siteInfo[@"createdAt"] timeAgoSinceNow];
+  Site* site = (Site*)_siteList[indexPath.row];
+  [[cell textLabel] setText:site.friendlyName];
+  NSString* timeAgoString = [(NSDate*)site.createdAt timeAgoSinceNow];
   [cell.detailTextLabel setText:timeAgoString];
   return cell;
 }
@@ -120,11 +121,12 @@
                  return;
                }
                NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
-               NSDictionary* siteInfo = @{@"name":normalizedName,
-                                          @"createdAt":date};
+               Site* site = [[Site alloc]init];
+               site.friendlyName = normalizedName;
+               site.createdAt = date;
                
-               [_siteList addObject:siteInfo];
-                [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"available_sites"];
+               [_siteList addObject:site];
+                [[NSUserDefaults standardUserDefaults] setObject:site forKey:@"available_sites"];
                [_loadingHUD hide:YES];
                [_mainTableView reloadData];
              }];
@@ -145,10 +147,9 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    NSDictionary* siteInfo = (NSDictionary*)_siteList[indexPath.row];
-    NSString* prototypeName = siteInfo[@"name"];
-    [Util removePrototypeDirectory:prototypeName];
-    [_siteList removeObject:siteInfo];
+    Site* site = (Site*)_siteList[indexPath.row];
+    [Util removePrototypeDirectory:site.friendlyName];
+    [_siteList removeObject:site];
     [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"active_prototypes"];
     [tableView reloadData]; // tell table to refresh now
   }
