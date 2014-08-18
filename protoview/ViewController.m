@@ -106,7 +106,7 @@
   UIImage *resultImageView = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
   
-  UIImage* thumb = [Util imageWithImage:resultImageView scaledToSize:CGSizeMake(50, 50)];
+  UIImage* thumb = [Util imageWithImage:resultImageView scaledToSize:CGSizeMake(50, 88)];
   _selectedSite.thumbnail = thumb;
   [Util updateAvailableSite:_selectedSite];
   

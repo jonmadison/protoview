@@ -40,7 +40,7 @@
 {
   [super viewWillAppear:animated];
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  _siteList = [defaults objectForKey:kProtoviewAvailableSites];
+  _siteList = [[defaults objectForKey:kProtoviewAvailableSites] mutableCopy];
   if(_siteList==nil) _siteList = [[NSMutableDictionary alloc]init];
   [_mainTableView reloadData];
 }
@@ -167,7 +167,7 @@
     [Util removePrototypeDirectory:site.identifier];
     [_siteList removeObjectForKey:site.identifier];
     [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:kProtoviewAvailableSites];
-    [tableView reloadData]; // tell table to refresh now
+    [_mainTableView reloadData]; // tell table to refresh now
   }
 }
 
