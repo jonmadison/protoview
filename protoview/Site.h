@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface Site : NSObject
-@property NSString* url;
+@property NSString* identifier;
 @property NSString* friendlyName;
 @property NSDate* createdAt;
+- (NSData*)asData;
++ (Site*)objectFromData:(NSData*)data;
 @end

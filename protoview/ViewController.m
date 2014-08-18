@@ -44,8 +44,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-  NSLog(@"selected prototype %@",_currentPrototype[@"name"]);
-  NSString* requestedUrl = [NSString stringWithFormat:@"http://127.0.0.1:9999/%@/index.html",_currentPrototype[@"name"]];
+  NSLog(@"selected url %@",_url);
+  NSString* requestedUrl = [NSString stringWithFormat:@"http://127.0.0.1:9999/%@/index.html",_url];
   NSLog(@"requesting URL %@",requestedUrl);
   
   NSURL *url = [NSURL URLWithString:requestedUrl];

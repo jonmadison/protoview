@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController <UIScrollViewDelegate>
-@property (nonatomic,retain) NSDictionary* currentPrototype;
+@property (nonatomic,retain) NSString* url;
 @end

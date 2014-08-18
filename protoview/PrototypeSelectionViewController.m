@@ -17,7 +17,7 @@
 #import "UnzipManager.h"
 
 @interface PrototypeSelectionViewController ()
-@property NSString* selectedPrototype;
+@property Site* selectedSite;
 @property (nonatomic,retain) NSMutableArray* siteList;
 @end
 
@@ -70,7 +70,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-  Site* site = (Site*)_siteList[indexPath.row];
+  Site* site = [Site objectFromData:_siteList[indexPath.row]];
   [[cell textLabel] setText:site.friendlyName];
   NSString* timeAgoString = [(NSDate*)site.createdAt timeAgoSinceNow];
   [cell.detailTextLabel setText:timeAgoString];
@@ -80,7 +80,7 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  _selectedPrototype = _siteList[indexPath.row];
+  _selectedSite = [Site objectFromData:_siteList[indexPath.row]];
   return indexPath;
   
 }
@@ -107,12 +107,14 @@
                                        stringByReplacingOccurrencesOfString:@".zip" withString:@""];
            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
            NSString *documentsDirectory = [paths objectAtIndex:0];
-           NSString* prototypeWebserverPath = [NSString stringWithFormat:@"%@/prototypes/%@/",documentsDirectory,normalizedName];
-           [Util createPrototypeDirectory:prototypeWebserverPath];
            _loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
            [_loadingHUD setLabelText:@"Fetching Zip File"];
            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+             Site* site = [[Site alloc]init];
+             NSString* prototypeWebserverPath = [NSString stringWithFormat:@"%@/prototypes/%@/",documentsDirectory,site.identifier];
+             [Util createPrototypeDirectory:prototypeWebserverPath];
+             
              [unzipper downloadAndUnzipFileNamed:result.name  intoDirectory:prototypeWebserverPath fromURL:result.link withCompletion:^(NSURL *unzippedLocation, NSError *unzipError) {
                if(unzipError) {
                  NSLog(@"unzipper error: %@",[unzipError localizedDescription]);
@@ -121,12 +123,11 @@
                  return;
                }
                NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
-               Site* site = [[Site alloc]init];
                site.friendlyName = normalizedName;
                site.createdAt = date;
                
-               [_siteList addObject:site];
-                [[NSUserDefaults standardUserDefaults] setObject:site forKey:@"available_sites"];
+               [_siteList addObject:[site asData]];
+               [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"available_sites"];
                [_loadingHUD hide:YES];
                [_mainTableView reloadData];
              }];
@@ -147,7 +148,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    Site* site = (Site*)_siteList[indexPath.row];
+    Site* site = [Site objectFromData:_siteList[indexPath.row]];
     [Util removePrototypeDirectory:site.friendlyName];
     [_siteList removeObject:site];
     [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"active_prototypes"];
@@ -177,7 +178,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
   ViewController* vc = [segue destinationViewController];
-  [vc setCurrentPrototype:_selectedPrototype];
+  [vc setUrl:_selectedSite.identifier];
 }
 
 

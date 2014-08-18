@@ -15,16 +15,6 @@
   return [super init];
 }
 
--(void)unzipFile:(NSString*)fileName intoDirectory:(NSString*)destinationDirectory
-{
-  NSString* fileNamePart = [[fileName lastPathComponent] stringByDeletingPathExtension];
-  NSString* extension = [fileName pathExtension];
-  NSString* filePath = [[NSBundle mainBundle] pathForResource:fileNamePart ofType:extension];
-  NSData* data = [NSData dataWithContentsOfFile:filePath];
-  
-  ZZArchive* archive = [ZZArchive archiveWithData:data];
-}
-
 -(void)downloadAndUnzipFileNamed:(NSString*)fileName intoDirectory:(NSString*) destinationDirectory fromURL:(NSURL *)url withCompletion:(void(^)(NSURL*,NSError*))completion
 {
   NSError* error = nil;

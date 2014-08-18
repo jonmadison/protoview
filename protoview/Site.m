@@ -11,7 +11,34 @@
 @implementation Site
 - (id)init {
   self = [super init];
-  self.url = [[NSUUID UUID] UUIDString];
+  self.identifier = [[NSUUID UUID] UUIDString];
+  return self;
+}
+
+- (NSData*)asData
+{
+  return [NSKeyedArchiver archivedDataWithRootObject:self];
+}
+
++ (Site*)objectFromData:(NSData*)data
+{
+  id obj = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+  return (Site*)obj;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+  [coder encodeObject:self.friendlyName forKey:@"SiteFriendlyName"];
+  [coder encodeObject:self.identifier forKey:@"SiteURL"];
+  [coder encodeObject:self.createdAt forKey:@"SiteCreatedAt"];
+}
+
+- (id)initWithCoder:(NSCoder *)coder {
+  self = [super init];
+  if (self) {
+    self.friendlyName = [coder decodeObjectForKey:@"SiteFriendlyName"];
+    self.identifier = [coder decodeObjectForKey:@"SiteURL"];
+    self.createdAt = [coder decodeObjectForKey:@"SiteCreatedAt"];
+  }
   return self;
 }
 @end
