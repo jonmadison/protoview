@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Site.h"
 
 @interface ViewController : UIViewController <UIScrollViewDelegate>
-@property (nonatomic,retain) NSString* url;
+@property (nonatomic,retain) Site* selectedSite;
 @end

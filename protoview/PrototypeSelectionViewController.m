@@ -18,7 +18,7 @@
 
 @interface PrototypeSelectionViewController ()
 @property Site* selectedSite;
-@property (nonatomic,retain) NSMutableArray* siteList;
+@property (nonatomic,retain) NSMutableDictionary* siteList;
 @end
 
 @implementation PrototypeSelectionViewController
@@ -39,14 +39,12 @@
 - (void)viewDidLoad
 {  
   [super viewDidLoad];
-  _siteList = [[NSMutableArray alloc]init];
- 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showDownloadingHUD) name:@"ProtoviewDownloadingFiles" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUnzippingHUD) name:@"ProtoviewUnzippingFiles" object:nil];
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  _siteList = [defaults objectForKey:@"available_sites"];
-  if(_siteList==nil) _siteList = [[NSMutableArray alloc]init];
+  _siteList = [defaults objectForKey:kProtoviewAvailableSites];
+  if(_siteList==nil) _siteList = [[NSMutableDictionary alloc]init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,7 +68,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-  Site* site = [Site objectFromData:_siteList[indexPath.row]];
+  NSArray* allKeys = [_siteList allKeys];
+  
+  Site* site = [Site objectFromData:_siteList[allKeys[indexPath.row]]];
   [[cell textLabel] setText:site.friendlyName];
   NSString* timeAgoString = [(NSDate*)site.createdAt timeAgoSinceNow];
   [cell.detailTextLabel setText:timeAgoString];
@@ -80,7 +80,8 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  _selectedSite = [Site objectFromData:_siteList[indexPath.row]];
+  NSArray* allKeys = [_siteList allKeys];
+  _selectedSite = [Site objectFromData:_siteList[allKeys[indexPath.row]]];
   return indexPath;
 }
 
@@ -132,9 +133,8 @@
                NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
                site.friendlyName = normalizedName;
                site.createdAt = date;
-               
-               [_siteList addObject:[site asData]];
-               [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"available_sites"];
+               [_siteList setObject:[site asData] forKey:site.identifier];
+               [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:kProtoviewAvailableSites];
                [_loadingHUD hide:YES];
                [_mainTableView reloadData];
              }];
@@ -155,9 +155,11 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    Site* site = [Site objectFromData:_siteList[indexPath.row]];
+    NSArray* allKeys = [_siteList allKeys];
+
+    Site* site = [Site objectFromData:_siteList[allKeys[indexPath.row]]];
     [Util removePrototypeDirectory:site.identifier];
-    [_siteList removeObjectAtIndex:indexPath.row];
+    [_siteList removeObjectForKey:site.identifier];
     [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:@"active_prototypes"];
     [tableView reloadData]; // tell table to refresh now
   }
@@ -185,7 +187,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
   ViewController* vc = [segue destinationViewController];
-  [vc setUrl:_selectedSite.identifier];
+  [vc setSelectedSite:_selectedSite];
 }
 
 

@@ -12,6 +12,7 @@
 @property NSString* identifier;
 @property NSString* friendlyName;
 @property NSDate* createdAt;
+@property UIImage* thumbnail;
 - (NSData*)asData;
 + (Site*)objectFromData:(NSData*)data;
 @end

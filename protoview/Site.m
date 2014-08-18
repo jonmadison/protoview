@@ -30,6 +30,7 @@
   [coder encodeObject:self.friendlyName forKey:@"SiteFriendlyName"];
   [coder encodeObject:self.identifier forKey:@"SiteURL"];
   [coder encodeObject:self.createdAt forKey:@"SiteCreatedAt"];
+  [coder encodeObject:self.thumbnail forKey:@"SiteThumbnail"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -38,6 +39,7 @@
     self.friendlyName = [coder decodeObjectForKey:@"SiteFriendlyName"];
     self.identifier = [coder decodeObjectForKey:@"SiteURL"];
     self.createdAt = [coder decodeObjectForKey:@"SiteCreatedAt"];
+    self.createdAt = [coder decodeObjectForKey:@"SiteThumbnail"];
   }
   return self;
 }

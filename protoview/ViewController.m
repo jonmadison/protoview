@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "WebServerManager.h"
+#import "Util.h"
 #import <MBProgressHUD.h>
 
 @interface ViewController ()
@@ -44,8 +45,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-  NSLog(@"selected url %@",_url);
-  NSString* requestedUrl = [NSString stringWithFormat:@"http://127.0.0.1:9999/%@/index.html",_url];
+  NSLog(@"selected url %@",_selectedSite.friendlyName);
+  NSString* requestedUrl = [NSString stringWithFormat:@"http://127.0.0.1:9999/%@/index.html",_selectedSite.identifier];
   NSLog(@"requesting URL %@",requestedUrl);
   
   NSURL *url = [NSURL URLWithString:requestedUrl];
@@ -98,4 +99,14 @@
     scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y);
 }
 
+-(void)saveThumbnail {
+  UIGraphicsBeginImageContext(_mainWebView.bounds.size);
+  [_mainWebView.layer renderInContext:UIGraphicsGetCurrentContext()];
+  UIImage *resultImageView = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  
+  UIImage* thumb = [Util imageWithImage:resultImageView scaledToSize:CGSizeMake(50, 50)];
+  _selectedSite.thumbnail = thumb;
+  
+}
 @end

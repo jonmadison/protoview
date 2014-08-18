@@ -13,4 +13,5 @@
 + (void)createPrototypeDirectory:(NSString*)directoryPath;
 + (void)copyPrototypeHTMLFromPath:(NSString*)fromPath toPath:(NSString*)toPath;
 + (void)removePrototypeDirectory:(NSString*)directory;
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 @end
