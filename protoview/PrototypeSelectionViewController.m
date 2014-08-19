@@ -108,9 +108,8 @@
          if ([result.name rangeOfString:@"zip"].location == NSNotFound) {
            NSLog(@"not a zip file yo, ain't nobody got time for that.");
            dispatch_async(dispatch_get_main_queue(), ^{
-             _loadingHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-             [_loadingHUD setLabelText:@"Invalid File Type"];
-             [_loadingHUD hide:YES];
+             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Invalid file type. I work with zip files." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+             [alert show];
            });
            return;
          } else {
