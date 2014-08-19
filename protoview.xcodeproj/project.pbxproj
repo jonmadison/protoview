@@ -23,6 +23,8 @@
 		841AEF70199C2D1E00D0CBFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841AEF52199C2D1E00D0CBFD /* UIKit.framework */; };
 		841AEF78199C2D1E00D0CBFD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841AEF76199C2D1E00D0CBFD /* InfoPlist.strings */; };
 		841AEF7A199C2D1E00D0CBFD /* protoviewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AEF79199C2D1E00D0CBFD /* protoviewTests.m */; };
+		842BA65019A2F9A900E5B0FF /* SiteSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842BA64F19A2F9A900E5B0FF /* SiteSelectionViewController.m */; };
+		842BA65119A2F9A900E5B0FF /* SiteSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842BA64F19A2F9A900E5B0FF /* SiteSelectionViewController.m */; };
 		84405AD8199EDB12001D6E5E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 84405AD7199EDB12001D6E5E /* Constants.m */; };
 		847B5CCF199C83A300F84CEE /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 847B5CCE199C83A300F84CEE /* Util.m */; };
 		84B5709B19A1BAA400B388B4 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5709A19A1BAA400B388B4 /* Site.m */; };
@@ -66,6 +68,8 @@
 		841AEF75199C2D1E00D0CBFD /* protoviewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "protoviewTests-Info.plist"; sourceTree = "<group>"; };
 		841AEF77199C2D1E00D0CBFD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		841AEF79199C2D1E00D0CBFD /* protoviewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = protoviewTests.m; sourceTree = "<group>"; };
+		842BA64E19A2F9A900E5B0FF /* SiteSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiteSelectionViewController.h; sourceTree = "<group>"; };
+		842BA64F19A2F9A900E5B0FF /* SiteSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiteSelectionViewController.m; sourceTree = "<group>"; };
 		84405AD6199EDB12001D6E5E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		84405AD7199EDB12001D6E5E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		847B5CCD199C83A300F84CEE /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
@@ -209,6 +213,8 @@
 				841AEF64199C2D1E00D0CBFD /* ViewController.m */,
 				84092BDC199D3FC9005F5D64 /* NamePrototypeDialog.h */,
 				84092BDD199D3FC9005F5D64 /* NamePrototypeDialog.m */,
+				842BA64E19A2F9A900E5B0FF /* SiteSelectionViewController.h */,
+				842BA64F19A2F9A900E5B0FF /* SiteSelectionViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84B5709B19A1BAA400B388B4 /* Site.m in Sources */,
+				842BA65019A2F9A900E5B0FF /* SiteSelectionViewController.m in Sources */,
 				847B5CCF199C83A300F84CEE /* Util.m in Sources */,
 				84092BDE199D3FC9005F5D64 /* NamePrototypeDialog.m in Sources */,
 				841AEF65199C2D1E00D0CBFD /* ViewController.m in Sources */,
@@ -370,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842BA65119A2F9A900E5B0FF /* SiteSelectionViewController.m in Sources */,
 				841AEF7A199C2D1E00D0CBFD /* protoviewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

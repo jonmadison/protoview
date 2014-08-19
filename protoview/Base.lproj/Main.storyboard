@@ -107,6 +107,81 @@
             </objects>
             <point key="canvasLocation" x="-181" y="-14"/>
         </scene>
+        <!--Site Selection View Controller-->
+        <scene sceneID="u1y-0l-JgL">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="uBg-fV-syl" customClass="SiteSelectionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9mB-ii-AXD"/>
+                        <viewControllerLayoutGuide type="bottom" id="1cx-Dr-T56"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hia-bm-iRv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cd3-af-Ahd">
+                                <rect key="frame" x="0.0" y="64" width="320" height="438"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DiI-KU-G7M">
+                                    <size key="itemSize" width="150" height="140"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="ZRc-k0-XK2">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="140"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kuM-hr-qf3">
+                                                    <rect key="frame" x="50" y="0.0" width="50" height="90"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="300" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSe-Hv-RJx">
+                                                    <rect key="frame" x="8" y="123" width="134" height="17"/>
+                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="13"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSj-mm-vJ1">
+                                                    <rect key="frame" x="8" y="101" width="134" height="19"/>
+                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <segue destination="vXZ-lx-hvc" kind="modal" id="h1L-Mr-lVj"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="uBg-fV-syl" id="zs3-I8-rae"/>
+                                    <outlet property="delegate" destination="uBg-fV-syl" id="q3X-jR-Mzf"/>
+                                </connections>
+                            </collectionView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Shake or touch and hold with 3 fingers to return to this screen." translatesAutoresizingMaskIntoConstraints="NO" id="bAU-9C-DLd">
+                                <rect key="frame" x="46" y="510" width="239" height="58"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Eg4-Lf-GLH"/>
+                    <connections>
+                        <outlet property="sitesCollectionView" destination="Cd3-af-Ahd" id="SzK-bd-FOd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K84-NC-PSf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-181" y="649"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="vuB-Bw-gp1">
             <objects>
@@ -115,7 +190,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Rm8-Mw-Uhf" kind="relationship" relationship="rootViewController" id="kVd-Fw-E0r"/>
+                        <segue destination="Rm8-Mw-Uhf" kind="relationship" relationship="rootViewController" id="Nxf-sD-y5s"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2HT-Fw-Il6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -131,4 +206,7 @@
             <size key="landscapeSize" width="568" height="320"/>
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="h1L-Mr-lVj"/>
+    </inferredMetricsTieBreakers>
 </document>
