@@ -83,14 +83,6 @@
   return YES;
 }
 
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-  if(motion==UIEventSubtypeMotionShake)
-  {
-    [self closeMe];
-  }
-}
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
   if (scrollView.contentOffset.y > 0 || scrollView.contentOffset.y < 0)
