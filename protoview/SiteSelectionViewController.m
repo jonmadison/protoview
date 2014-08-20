@@ -11,9 +11,11 @@
 #import "ViewController.h"
 #import "UnzipManager.h"
 #import "Util.h"
+#import "SiteCollectionViewCell.h"
 #import <DBChooser.h>
 #import <MBProgressHUD.h>
 #import <DateTools.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface SiteSelectionViewController ()
 @property Site* selectedSite;
@@ -29,12 +31,30 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   _siteList = [[defaults objectForKey:kProtoviewAvailableSites] mutableCopy];
   if(_siteList==nil) _siteList = [[NSMutableDictionary alloc]init];
   [_sitesCollectionView reloadData];
 }
 
+- (void) didPressAndHoldCell
+{
+  [_buttonItemEditSites setTitle:@"Cancel"];
+  for(SiteCollectionViewCell *cell in _sitesCollectionView.visibleCells){
+    cell.shouldAnimate = YES;
+    [_sitesCollectionView reloadData];
+  }
+}
+
+- (void)cancelWiggleCells
+{
+  [_buttonItemEditSites setTitle:@"Edit"];
+  for(SiteCollectionViewCell *cell in _sitesCollectionView.visibleCells){
+    cell.shouldAnimate = NO;
+    [_sitesCollectionView reloadData];
+  }
+}
 - (void)viewDidLoad {
   [super viewDidLoad];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showDownloadingHUD) name:@"ProtoviewDownloadingFiles" object:nil];
@@ -98,6 +118,14 @@
    }];
 }
 
+- (IBAction)editOrCancelButtonPressed:(id)sender {
+  if([_buttonItemEditSites.title isEqualToString:@"Edit"]){
+    [self didPressAndHoldCell];
+  } else {
+    [self cancelWiggleCells];
+  }
+  
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -111,8 +139,7 @@
 
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  
-  UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+  SiteCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
   UIImageView* imageView = (UIImageView*)[cell viewWithTag:100];
   NSArray* allKeys = [_siteList allKeys];
   
@@ -123,12 +150,24 @@
   UILabel* labelCreated = (UILabel*)[cell viewWithTag:300];
   NSString* timeAgoString = [(NSDate*)site.createdAt timeAgoSinceNow];
   [labelCreated setText:timeAgoString];
+  
+  if(cell.shouldAnimate) {
+    [self wiggleCell:cell];
+  } else {
+    [cell.layer removeAllAnimations];
+    UILongPressGestureRecognizer* recognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(didPressAndHoldCell)];
+    [recognizer setMinimumPressDuration:1];
+    [cell addGestureRecognizer:recognizer];
+  }
   return cell;
 }
 
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+  SiteCollectionViewCell* cell = (SiteCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+  if(cell.shouldAnimate==YES) return NO;
+  
   NSArray* allKeys = [_siteList allKeys];
   _selectedSite = [Site objectFromData:_siteList[allKeys[indexPath.row]]];
   return YES;
@@ -147,6 +186,25 @@
 {
   ViewController* vc = [segue destinationViewController];
   [vc setSelectedSite:_selectedSite];
+}
+
+-(void)wiggleCell:(SiteCollectionViewCell*)cell
+{
+  cell.shouldAnimate = YES;
+  [UIView beginAnimations:@"wiggle" context:nil];
+  
+  [UIView setAnimationDuration:0.15];
+  
+  [UIView setAnimationRepeatAutoreverses:YES];
+  
+  [UIView setAnimationRepeatCount:FLT_MAX];
+  
+  //wiggle 1 degree both sides
+  cell.transform = CGAffineTransformMakeRotation(0.1);
+  
+  cell.transform = CGAffineTransformMakeRotation(-0.1);
+
+  [UIView commitAnimations];
 }
 
 @end

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="I0L-Pu-IA8">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
     </dependencies>
     <scenes>
@@ -128,7 +129,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="ZRc-k0-XK2">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="ZRc-k0-XK2" customClass="SiteCollectionViewCell">
                                         <rect key="frame" x="0.0" y="10" width="150" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -173,6 +174,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Eg4-Lf-GLH">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="m4f-wo-R35">
+                            <connections>
+                                <action selector="editOrCancelButtonPressed:" destination="uBg-fV-syl" id="WPI-b0-9vW"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="YQe-W9-gbZ">
                             <connections>
                                 <action selector="didPressAddNewPrototype" destination="uBg-fV-syl" id="UvI-Lh-gUJ"/>
@@ -180,12 +186,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonItemEditSites" destination="m4f-wo-R35" id="rnp-s5-6nE"/>
                         <outlet property="sitesCollectionView" destination="Cd3-af-Ahd" id="SzK-bd-FOd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K84-NC-PSf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-181" y="649"/>
+            <point key="canvasLocation" x="-181" y="721"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vuB-Bw-gp1">

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SiteSelectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate>
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonItemEditSites;
 @property (weak, nonatomic) IBOutlet UICollectionView *sitesCollectionView;
 @end
