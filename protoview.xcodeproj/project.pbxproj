@@ -27,8 +27,6 @@
 		842BA65119A2F9A900E5B0FF /* SiteSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842BA64F19A2F9A900E5B0FF /* SiteSelectionViewController.m */; };
 		84405AD8199EDB12001D6E5E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 84405AD7199EDB12001D6E5E /* Constants.m */; };
 		847B5CCF199C83A300F84CEE /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 847B5CCE199C83A300F84CEE /* Util.m */; };
-		8497570219A7D3A7009D7698 /* SiteCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497570119A7D3A7009D7698 /* SiteCollectionViewCell.m */; };
-		8497570319A7D3A7009D7698 /* SiteCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497570119A7D3A7009D7698 /* SiteCollectionViewCell.m */; };
 		84B5709B19A1BAA400B388B4 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B5709A19A1BAA400B388B4 /* Site.m */; };
 		84D6554C199D09090059696B /* PrototypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6554B199D09090059696B /* PrototypeSelectionViewController.m */; };
 		84D65550199D340B0059696B /* dropbox-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D6554F199D340B0059696B /* dropbox-logo.png */; };
@@ -76,8 +74,6 @@
 		84405AD7199EDB12001D6E5E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		847B5CCD199C83A300F84CEE /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		847B5CCE199C83A300F84CEE /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
-		8497570019A7D3A7009D7698 /* SiteCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiteCollectionViewCell.h; sourceTree = "<group>"; };
-		8497570119A7D3A7009D7698 /* SiteCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiteCollectionViewCell.m; sourceTree = "<group>"; };
 		84B5709919A1BAA400B388B4 /* Site.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Site.h; sourceTree = "<group>"; };
 		84B5709A19A1BAA400B388B4 /* Site.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Site.m; sourceTree = "<group>"; };
 		84D6554A199D09090059696B /* PrototypeSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrototypeSelectionViewController.h; sourceTree = "<group>"; };
@@ -161,8 +157,6 @@
 				84B5709A19A1BAA400B388B4 /* Site.m */,
 				847B5CCD199C83A300F84CEE /* Util.h */,
 				847B5CCE199C83A300F84CEE /* Util.m */,
-				8497570119A7D3A7009D7698 /* SiteCollectionViewCell.m */,
-				8497570019A7D3A7009D7698 /* SiteCollectionViewCell.h */,
 				841AF073199C798900D0CBFD /* ViewControllers */,
 				841AEF5D199C2D1E00D0CBFD /* AppDelegate.h */,
 				841AEF5E199C2D1E00D0CBFD /* AppDelegate.m */,
@@ -375,7 +369,6 @@
 				841AEF65199C2D1E00D0CBFD /* ViewController.m in Sources */,
 				84D6554C199D09090059696B /* PrototypeSelectionViewController.m in Sources */,
 				841AEF5F199C2D1E00D0CBFD /* AppDelegate.m in Sources */,
-				8497570219A7D3A7009D7698 /* SiteCollectionViewCell.m in Sources */,
 				84FDE844199DA25C00C8197E /* WebServerManager.m in Sources */,
 				84FDE841199D863A00C8197E /* UnzipManager.m in Sources */,
 				841AEF5B199C2D1E00D0CBFD /* main.m in Sources */,
@@ -388,7 +381,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				842BA65119A2F9A900E5B0FF /* SiteSelectionViewController.m in Sources */,
-				8497570319A7D3A7009D7698 /* SiteCollectionViewCell.m in Sources */,
 				841AEF7A199C2D1E00D0CBFD /* protoviewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

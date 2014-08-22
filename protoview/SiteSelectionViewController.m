@@ -11,7 +11,6 @@
 #import "ViewController.h"
 #import "UnzipManager.h"
 #import "Util.h"
-#import "SiteCollectionViewCell.h"
 #import <DBChooser.h>
 #import <MBProgressHUD.h>
 #import <DateTools.h>
@@ -65,7 +64,7 @@
   for(id key in [_siteList allKeys]) {
     Site* site = _siteList[key];
     site.isDeletable = editable;
-    [_siteList setObject:[site asData] forKey:site.identifier];
+    [_siteList setObject:site forKey:site.identifier];
   }
   [_sitesCollectionView reloadItemsAtIndexPaths:_sitesCollectionView.indexPathsForVisibleItems];
 }
@@ -92,12 +91,12 @@
 #pragma mark UICollectionViewDelegate
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  SiteCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+  UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
   [self configureCell:cell atIndexpath:indexPath];
   return cell;
 }
 
-- (void)configureCell:(SiteCollectionViewCell*)cell atIndexpath:(NSIndexPath*)indexPath
+- (void)configureCell:(UICollectionViewCell*)cell atIndexpath:(NSIndexPath*)indexPath
 {
   UIImageView* imageView = (UIImageView*)[cell viewWithTag:100];
   [imageView.layer setShadowColor:[UIColor blackColor].CGColor];
@@ -110,7 +109,6 @@
   NSArray* allKeys = [_siteList allKeys];
   
   Site* site = _siteList[allKeys[indexPath.row]];
-  cell.siteIdentifier = site.identifier;
   [imageView setImage:site.thumbnail];
   UILabel* labelName = (UILabel*)[cell viewWithTag:200];
   [labelName setText:site.friendlyName];
@@ -122,51 +120,45 @@
   [recognizer setMinimumPressDuration:1];
   [cell addGestureRecognizer:recognizer];
 
-  UITapGestureRecognizer* deleteRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(deleteItemConfirm:)];
   
   if(site.isDeletable) {
     [recognizer setEnabled:NO];
     [deleteImageView setAlpha:0.9f];
-    [deleteRecognizer setNumberOfTapsRequired:1];
-    [cell addGestureRecognizer:deleteRecognizer];
     [self wiggleCell:cell];
   } else {
     UIImageView* deleteImageView = (UIImageView*)[cell viewWithTag:400];
     [deleteImageView setAlpha:0.0f];
     [recognizer setEnabled:YES];
-    [deleteRecognizer setEnabled:NO];
   }
 }
 
-- (void)deleteItemConfirm:(UITapGestureRecognizer*)sender {
-  SiteCollectionViewCell* cell = (SiteCollectionViewCell*)sender.view;
-  NSLog(@"confirm delete of site id %@",cell.siteIdentifier);
 
-  NSString* title = [NSString stringWithFormat:@"Delete \"%@\"",[(UILabel*)[cell viewWithTag:200] text]];
-  NSString* message = [NSString stringWithFormat:@"Deleting %@ will remove all of its data.",[(UILabel*)[cell viewWithTag:200] text]];
-  
-  RIButtonItem* deleteItem = [RIButtonItem itemWithLabel:@"Delete" action:^{
-    Site* site = _siteList[cell.siteIdentifier];
-    [Util removePrototypeDirectory:site.identifier];
-    [_siteList removeObjectForKey:site.identifier];
-    [Util saveSiteListToDefaults:_siteList];
-  }];
-  
-  RIButtonItem* cancelItem = [RIButtonItem itemWithLabel:@"Cancel"];
-  
-  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
-                                                      message:message
-                                             cancelButtonItem:cancelItem
-                                             otherButtonItems:deleteItem, nil];
-
- [alertView show];
-}
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
   NSArray* allKeys = [_siteList allKeys];
   _selectedSite = _siteList[allKeys[indexPath.row]];
-  if(_selectedSite.isDeletable==YES) return NO;
+  if(_selectedSite.isDeletable) {
+    NSLog(@"confirm delete of site id %@",_selectedSite.identifier);
+    
+    NSString* title = [NSString stringWithFormat:@"Delete \"%@\"",_selectedSite.friendlyName];
+    NSString* message = [NSString stringWithFormat:@"Deleting %@ will remove all of its data.",_selectedSite.friendlyName];
+    
+    RIButtonItem* deleteItem = [RIButtonItem itemWithLabel:@"Delete" action:^{
+      [Util removePrototypeDirectory:_selectedSite.identifier];
+      [_siteList removeObjectForKey:_selectedSite.identifier];
+      [Util saveSiteListToDefaults:_siteList];
+      [_sitesCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+    }];
+    
+    RIButtonItem* cancelItem = [RIButtonItem itemWithLabel:@"Cancel"];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                               cancelButtonItem:cancelItem
+                                               otherButtonItems:deleteItem, nil];
+    [alertView show];
+    return NO;
+  }
 
   return YES;
 }
@@ -245,7 +237,7 @@
                site.friendlyName = normalizedName;
                site.createdAt = date;
                [_siteList setObject:site forKey:site.identifier];
-               [Util saveOrUpdateAvailableSite:site];
+               [Util saveSiteListToDefaults:_siteList];
                [_loadingHUD hide:YES];
                [_sitesCollectionView reloadData];
              }];

@@ -97,8 +97,10 @@
 
 + (void)saveOrUpdateAvailableSite:(Site*)site {
   NSMutableDictionary* siteList = [[[NSUserDefaults standardUserDefaults] objectForKey:kProtoviewAvailableSites] mutableCopy];
+  if(siteList==nil) siteList = [[NSMutableDictionary alloc]init];
   [siteList setObject:[site asData] forKey:site.identifier];
   [[NSUserDefaults standardUserDefaults] setObject:siteList forKey:kProtoviewAvailableSites];
+  [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (NSMutableDictionary*)savedSiteListAsObjectDictionary
@@ -123,6 +125,7 @@
     Site* site = siteList[identifier];
     [saveSiteList setObject:[site asData] forKey:site.identifier];
   }
-  [[NSUserDefaults standardUserDefaults] setObject:siteList forKey:kProtoviewAvailableSites];
+  [[NSUserDefaults standardUserDefaults] setObject:saveSiteList forKey:kProtoviewAvailableSites];
+  [[NSUserDefaults standardUserDefaults] synchronize];
 }
 @end
