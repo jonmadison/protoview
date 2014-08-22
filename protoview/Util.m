@@ -95,11 +95,34 @@
   return newImage;
 }
 
-+ (void)updateAvailableSite:(Site*)site {
++ (void)saveOrUpdateAvailableSite:(Site*)site {
   NSMutableDictionary* siteList = [[[NSUserDefaults standardUserDefaults] objectForKey:kProtoviewAvailableSites] mutableCopy];
-//  Site* oldSite = [Site objectFromData:siteList[site.identifier]];
-//  [siteList removeObjectForKey:site.identifier];
   [siteList setObject:[site asData] forKey:site.identifier];
+  [[NSUserDefaults standardUserDefaults] setObject:siteList forKey:kProtoviewAvailableSites];
+}
+
++ (NSMutableDictionary*)savedSiteListAsObjectDictionary
+{
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSMutableDictionary* unmarshaledSiteList = [[defaults objectForKey:kProtoviewAvailableSites] mutableCopy];
+  NSArray* keys = [unmarshaledSiteList allKeys];
+  NSMutableDictionary* result = [[NSMutableDictionary alloc]initWithCapacity:unmarshaledSiteList.count];
+  for(NSString* identifier in keys)
+  {
+    Site* site = [Site objectFromData:unmarshaledSiteList[identifier]];
+    [result setObject:site forKey:site.identifier];
+  }
+  return result;
+}
+
++ (void)saveSiteListToDefaults:(NSMutableDictionary*)siteList
+{
+  NSMutableDictionary* saveSiteList = [[NSMutableDictionary alloc]init];
+  for(NSString* identifier in [siteList allKeys])
+  {
+    Site* site = siteList[identifier];
+    [saveSiteList setObject:[site asData] forKey:site.identifier];
+  }
   [[NSUserDefaults standardUserDefaults] setObject:siteList forKey:kProtoviewAvailableSites];
 }
 @end

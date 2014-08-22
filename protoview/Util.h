@@ -14,6 +14,8 @@
 + (void)createPrototypeDirectory:(NSString*)directoryPath;
 + (void)copyPrototypeHTMLFromPath:(NSString*)fromPath toPath:(NSString*)toPath;
 + (void)removePrototypeDirectory:(NSString*)directory;
-+ (void)updateAvailableSite:(Site*)site;
++ (void)saveOrUpdateAvailableSite:(Site*)site;
++ (NSMutableDictionary*)savedSiteListAsObjectDictionary;
++ (void)saveSiteListToDefaults:(NSMutableDictionary*)siteList;
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 @end

@@ -17,6 +17,7 @@
 
 - (NSData*)asData
 {
+  self.isDeletable = NO;
   return [NSKeyedArchiver archivedDataWithRootObject:self];
 }
 

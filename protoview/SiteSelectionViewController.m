@@ -34,8 +34,7 @@
 {
   [super viewWillAppear:animated];
   
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  _siteList = [[defaults objectForKey:kProtoviewAvailableSites] mutableCopy];
+  _siteList = [Util savedSiteListAsObjectDictionary];
   if(_siteList==nil) _siteList = [[NSMutableDictionary alloc]init];
   [_sitesCollectionView reloadData];
 }
@@ -64,7 +63,7 @@
   }
   
   for(id key in [_siteList allKeys]) {
-    Site* site = [Site objectFromData:_siteList[key]];
+    Site* site = _siteList[key];
     site.isDeletable = editable;
     [_siteList setObject:[site asData] forKey:site.identifier];
   }
@@ -110,7 +109,7 @@
 
   NSArray* allKeys = [_siteList allKeys];
   
-  Site* site = [Site objectFromData:_siteList[allKeys[indexPath.row]]];
+  Site* site = _siteList[allKeys[indexPath.row]];
   cell.siteIdentifier = site.identifier;
   [imageView setImage:site.thumbnail];
   UILabel* labelName = (UILabel*)[cell viewWithTag:200];
@@ -147,11 +146,10 @@
   NSString* message = [NSString stringWithFormat:@"Deleting %@ will remove all of its data.",[(UILabel*)[cell viewWithTag:200] text]];
   
   RIButtonItem* deleteItem = [RIButtonItem itemWithLabel:@"Delete" action:^{
-    Site* site = [Site objectFromData:_siteList[cell.siteIdentifier]];
+    Site* site = _siteList[cell.siteIdentifier];
     [Util removePrototypeDirectory:site.identifier];
     [_siteList removeObjectForKey:site.identifier];
-    [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:kProtoviewAvailableSites];
-    [_sitesCollectionView reloadData]; // tell table to refresh now
+    [Util saveSiteListToDefaults:_siteList];
   }];
   
   RIButtonItem* cancelItem = [RIButtonItem itemWithLabel:@"Cancel"];
@@ -164,18 +162,10 @@
  [alertView show];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-  NSLog(@"clicked button at index %ld",buttonIndex);
-  if(buttonIndex==0) {
-    
-  }
-}
-
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
   NSArray* allKeys = [_siteList allKeys];
-  _selectedSite = [Site objectFromData:_siteList[allKeys[indexPath.row]]];
+  _selectedSite = _siteList[allKeys[indexPath.row]];
   if(_selectedSite.isDeletable==YES) return NO;
 
   return YES;
@@ -254,8 +244,8 @@
                NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
                site.friendlyName = normalizedName;
                site.createdAt = date;
-               [_siteList setObject:[site asData] forKey:site.identifier];
-               [[NSUserDefaults standardUserDefaults] setObject:_siteList forKey:kProtoviewAvailableSites];
+               [_siteList setObject:site forKey:site.identifier];
+               [Util saveOrUpdateAvailableSite:site];
                [_loadingHUD hide:YES];
                [_sitesCollectionView reloadData];
              }];

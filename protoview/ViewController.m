@@ -100,8 +100,7 @@
   
   UIImage* thumb = [Util imageWithImage:resultImageView scaledToSize:CGSizeMake(50, 88)];
   _selectedSite.thumbnail = thumb;
-  [Util updateAvailableSite:_selectedSite];
-  
+  [Util saveOrUpdateAvailableSite:_selectedSite];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
