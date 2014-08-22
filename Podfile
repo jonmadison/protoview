@@ -7,4 +7,5 @@ target "protoview" do
   pod 'DBChooser', '~> 1.1'
   pod 'zipzap', '~> 7.0'
   pod 'DateTools', '~> 1.3'
+  pod 'UIAlertView-Blocks', '~> 1.0'
 end

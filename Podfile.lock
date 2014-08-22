@@ -5,6 +5,7 @@ PODS:
     - GCDWebServer/Core
   - GCDWebServer/Core (2.5)
   - MBProgressHUD (0.9)
+  - UIAlertView-Blocks (1.0)
   - zipzap (7.0)
 
 DEPENDENCIES:
@@ -12,6 +13,7 @@ DEPENDENCIES:
   - DBChooser (~> 1.1)
   - GCDWebServer (~> 2.5)
   - MBProgressHUD (~> 0.9)
+  - UIAlertView-Blocks (~> 1.0)
   - zipzap (~> 7.0)
 
 SPEC CHECKSUMS:
@@ -19,6 +21,7 @@ SPEC CHECKSUMS:
   DBChooser: d192fb6fed4b727658ad53e7d341e9e306b6784d
   GCDWebServer: 42b25eb6dc20d83d73b2ba2ce547e2c96263a2cf
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
+  UIAlertView-Blocks: f3271e84372beb97aea115cd1fb26ae66457f12f
   zipzap: 1c85484d8f89388fba8fb5824b2eae15b9ce8092
 
 COCOAPODS: 0.33.1

@@ -27,6 +27,7 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
+  [coder encodeObject:[NSNumber numberWithBool:self.isDeletable] forKey:@"SiteIsDeletable"];
   [coder encodeObject:self.friendlyName forKey:@"SiteFriendlyName"];
   [coder encodeObject:self.identifier forKey:@"SiteURL"];
   [coder encodeObject:self.createdAt forKey:@"SiteCreatedAt"];
@@ -36,6 +37,7 @@
 - (id)initWithCoder:(NSCoder *)coder {
   self = [super init];
   if (self) {
+    self.isDeletable = [[coder decodeObjectForKey:@"SiteIsDeletable"] boolValue];
     self.friendlyName = [coder decodeObjectForKey:@"SiteFriendlyName"];
     self.identifier = [coder decodeObjectForKey:@"SiteURL"];
     self.createdAt = [coder decodeObjectForKey:@"SiteCreatedAt"];

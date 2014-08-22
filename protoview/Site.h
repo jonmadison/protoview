@@ -13,6 +13,7 @@
 @property NSString* friendlyName;
 @property NSDate* createdAt;
 @property UIImage* thumbnail;
+@property BOOL isDeletable; //leaky i know, ugh
 - (NSData*)asData;
 + (Site*)objectFromData:(NSData*)data;
 @end
