@@ -10,6 +10,7 @@
 #import "WebServerManager.h"
 #import "Util.h"
 #import <MBProgressHUD.h>
+#import <UIAlertView+Blocks.h>
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *mainWebView;
@@ -18,6 +19,7 @@
 @implementation ViewController
 {
 @private WebServerManager* _webserverManager;
+@private UILongPressGestureRecognizer* _longPressRecognizer;
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -30,9 +32,10 @@
   [super viewDidLoad];
   [_mainWebView setDelegate:self];
   _webserverManager = [WebServerManager instance];
-  UILongPressGestureRecognizer* longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(closeMe)];
-  [longPress setNumberOfTouchesRequired:3];
-  [_mainWebView addGestureRecognizer:longPress];
+  _longPressRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(confirmClose)];
+  [_longPressRecognizer setNumberOfTouchesRequired:3];
+  
+  [_mainWebView addGestureRecognizer:_longPressRecognizer];
   [_webserverManager startWebServerWithRoot:@"/prototypes" andPort:9999];
   [_mainWebView.scrollView setDelegate:self];
   [_mainWebView.scrollView setShowsHorizontalScrollIndicator:NO];
@@ -64,11 +67,25 @@
   });
 }
 
-- (void)closeMe {
+- (void)confirmClose {
+  [_mainWebView removeGestureRecognizer:_longPressRecognizer];
   if (![self.presentedViewController isBeingDismissed]) {
-    [self dismissViewControllerAnimated:YES completion:^{
-      [_webserverManager stopWebServer];
+    RIButtonItem* closeItem = [RIButtonItem itemWithLabel:@"Close" action:^{
+      [self dismissViewControllerAnimated:YES completion:^{
+        [_webserverManager stopWebServer];
+      }];
     }];
+    RIButtonItem* cancelItem = [RIButtonItem itemWithLabel:@"Cancel" action:^{
+      [_mainWebView addGestureRecognizer:_longPressRecognizer];
+    }];
+    NSString* title = @"Leave Prototype";
+    NSString* message = [NSString stringWithFormat:@"Do you really want to close \"%@\"?",_selectedSite.friendlyName];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                               cancelButtonItem:closeItem
+                                               otherButtonItems:cancelItem, nil];
+    [alertView show];
+
   }
 }
 
@@ -81,6 +98,13 @@
 - (BOOL)canBecomeFirstResponder
 {
   return YES;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+  if(motion==UIEventSubtypeMotionShake) {
+    [self confirmClose];
+  }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

@@ -15,7 +15,6 @@
 #import <MBProgressHUD.h>
 #import <DateTools.h>
 #import <UIAlertView+Blocks.h>
-#import <RIButtonItem.h>
 
 @interface SiteSelectionViewController ()
 @property Site* selectedSite;
