@@ -112,6 +112,7 @@
   for(NSString* identifier in keys)
   {
     Site* site = [Site objectFromData:unmarshaledSiteList[identifier]];
+    site.editable = NO;
     [result setObject:site forKey:site.identifier];
   }
   return result;
