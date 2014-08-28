@@ -107,7 +107,7 @@
             </objects>
             <point key="canvasLocation" x="-181" y="-14"/>
         </scene>
-        <!--Site Selection View Controller-->
+        <!--Site Selection View Controller - Site Chooser-->
         <scene sceneID="u1y-0l-JgL">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="uBg-fV-syl" customClass="SiteSelectionViewController" sceneMemberID="viewController">
@@ -177,7 +177,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Eg4-Lf-GLH">
+                    <navigationItem key="navigationItem" title="Site Chooser" id="Eg4-Lf-GLH">
                         <barButtonItem key="leftBarButtonItem" title="Edit" id="m4f-wo-R35">
                             <connections>
                                 <action selector="editOrCancelButtonPressed:" destination="uBg-fV-syl" id="WPI-b0-9vW"/>
